@@ -66,14 +66,14 @@ class BST:
             # Draw left child
             turtle.goto(x - offset, y - 65)
             turtle.pendown()
-            turtle.goto(x, y - 15)  # Line to current node
+            turtle.goto(x, y - 15)
             turtle.penup()
             self._draw_tree(node.left, x - offset, y - 50, offset / 2)
 
             # Draw right child
             turtle.goto(x + offset, y - 65)
             turtle.pendown()
-            turtle.goto(x, y - 15)  # Line to current node
+            turtle.goto(x, y - 15)
             turtle.penup()
             self._draw_tree(node.right, x + offset, y - 50, offset / 2)
 
