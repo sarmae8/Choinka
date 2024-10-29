@@ -11,7 +11,7 @@ def main():
     bst.insert(2)
     bst.insert(1)
 
-    bst.display(scale = 150)
+    bst.display(scale = 170)
 
 if __name__ == "__main__":
     main()
