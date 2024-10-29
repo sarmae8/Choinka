@@ -12,8 +12,21 @@ class BST:
 
     ###########################  ----------  member  -----------  ##################################
     
-    def member(self, val):
-        return NotImplementedError
+    def member(self, val):                              # Funkcja odwołuje się do funkcji rekurencyjnej member_rec
+        return self.member_rec(self.root, val)
+
+    def member_rec(self, node, val):     
+                       
+        if node is None:                                # Jeżeli nie ma potomków to zwróć False
+            return False
+        
+        elif node.val == val:                           # Jeżeli znaleźliśmy szukaną wartość to zwróć True
+            return True     
+
+        elif val < node.val:                            # Jeżeli "val" jest mniejsze niż "node.val" to szukamy w lewym potomku
+            return self.member_rec(node.left, val)
+
+        return self.member_rec(node.right, val)         # Jeżeli "val" jest większe niż "node.val" to szukamy w prawym potomku
     
     ###########################  ----------  insert  -----------  ##################################
     
@@ -54,7 +67,7 @@ class BST:
         turtle.speed(0)
         turtle.penup()
         if self.root:
-            self._draw_tree(self.root, 0, 0, scale)
+            self._draw_tree(self.root, 0, 300, scale)
         turtle.hideturtle()
         turtle.done()
 
