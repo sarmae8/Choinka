@@ -11,6 +11,14 @@ def main():
     bst.insert(2)
     bst.insert(1)
 
+        #           5
+        #        /     \
+        #       3       7
+        #      / \     / \
+        #     2   4   6   8
+        #    /
+        #   1
+
     bst.display(scale = 170)
 
 if __name__ == "__main__":
