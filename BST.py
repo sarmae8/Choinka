@@ -73,8 +73,10 @@ class BST:
 
     def _draw_tree(self, node, x, y, offset):
         if node is not None:
-            turtle.goto(x, y)
+            turtle.goto(x, y-15)
+            turtle.color("red")  
             turtle.write(node.val, align="center", font=("Arial", 10, "bold"))
+            turtle.color("black")
 
             # Draw left child
             turtle.goto(x - offset, y - 65)
@@ -92,7 +94,9 @@ class BST:
 
         else:
             turtle.goto(x, y-35)
-            turtle.write("null", align="center", font=("Arial", 10, "bold"))
+            turtle.color("red")  
+            turtle.write("x", align="center", font=("Arial", 10, "bold"))
+            turtle.color("black")
     
     ###########################  ----------  delete  -----------  ##################################
     
