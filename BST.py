@@ -62,7 +62,9 @@ class BST:
 
     ########################### ------ display ------- ############################################
 
-    def display(self, scale: int = 2):
+    def display(self):
+        scale: int = 2
+        
         # Create graph and layout
         G = nx.Graph()
         
