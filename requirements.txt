@@ -1,0 +1,9 @@
+matplotlib
+networkx
+
+# Aby zainstalować powyższe pakiety:
+# Wciśnij -> ctrl + shift + P
+# Wpisz i wybierz -> Python: CreateEnvironment
+# Wybierz Venv
+# Wybierz interpreter pythona
+# Zaznacz zależności do zainstalowania -> requirements.txt

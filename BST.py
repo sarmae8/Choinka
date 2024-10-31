@@ -1,4 +1,5 @@
-import turtle
+import matplotlib.pyplot as plt
+import networkx as nx
 
 class Node:
     def __init__(self, val):
@@ -61,42 +62,34 @@ class BST:
 
     ########################### ------ display ------- ############################################
 
+    def display(self, scale: int = 2):
+        # Create graph and layout
+        G = nx.Graph()
+        
+        def add_edges(node, pos_x, pos_y, level=0):
+            if node is None:
+                return
+            G.add_node(node.val, pos=(pos_x, pos_y))
 
-    def display(self, scale : int = 150):
-        turtle.clear()
-        turtle.speed(0)
-        turtle.penup()
-        if self.root:
-            self._draw_tree(self.root, 0, 300, scale)
-        turtle.hideturtle()
-        turtle.done()
+            if node.left is not None:
+                G.add_edge(node.val, node.left.val)
+                add_edges(node.left, pos_x - scale / (2**level), pos_y - scale, level + 1)
 
-    def _draw_tree(self, node, x, y, offset):
-        if node is not None:
-            turtle.goto(x, y-15)
-            turtle.color("red")  
-            turtle.write(node.val, align="center", font=("Arial", 10, "bold"))
-            turtle.color("black")
+            if node.right is not None:
+                G.add_edge(node.val, node.right.val)
+                add_edges(node.right, pos_x + scale / (2**level), pos_y - scale, level + 1)
 
-            # Draw left child
-            turtle.goto(x - offset, y - 65)
-            turtle.pendown()
-            turtle.goto(x, y - 15)
-            turtle.penup()
-            self._draw_tree(node.left, x - offset, y - 50, offset / 2)
+        # Start the recursive edge adding from root
+        add_edges(self.root, 0, 0)
 
-            # Draw right child
-            turtle.goto(x + offset, y - 65)
-            turtle.pendown()
-            turtle.goto(x, y - 15)
-            turtle.penup()
-            self._draw_tree(node.right, x + offset, y - 50, offset / 2)
-
-        else:
-            turtle.goto(x, y-35)
-            turtle.color("red")  
-            turtle.write("x", align="center", font=("Arial", 10, "bold"))
-            turtle.color("black")
+        # Get node positions
+        pos = nx.get_node_attributes(G, 'pos')
+        
+        # Draw the tree using matplotlib and networkx
+        plt.figure(figsize=(10, 8))
+        nx.draw(G, pos, with_labels=True, node_size=500, node_color="skyblue", font_size=10, font_weight="bold")
+        plt.title("Binary Search Tree")
+        plt.show()
     
     ###########################  ----------  delete  -----------  ##################################
     
