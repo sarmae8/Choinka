@@ -19,7 +19,7 @@ def main():
         #    /
         #   1
 
-    bst.display(scale = 170)
+    bst.display()
 
 if __name__ == "__main__":
     main()
