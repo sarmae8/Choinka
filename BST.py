@@ -96,7 +96,54 @@ class BST:
     ###########################  ----------  delete  -----------  ##################################
     
     def delete(self, val):
-        return NotImplementedError
+        # Korzeń drzewa
+        current: Node = self.root
+        parent: Node = None
+
+        # Znajdź węzeł do usunięcia oraz jego rodzica
+        while current and current.val != val:
+            parent = current
+            if val < current.val:
+                current = current.left
+            else:
+                current = current.right
+
+        # Jeśli węzeł nie został znaleziony
+        if not current:
+            return  # Węzeł do usunięcia nie istnieje
+
+        # Węzeł bez dzieci lub z jednym dzieckiem
+        if not current.left or not current.right:
+            # Węzeł do usunięcia
+            new_current = current.left if current.left else current.right
+
+            if parent is None:
+                # Usuwamy korzeń
+                self.root = new_current
+            elif parent.left == current:
+                parent.left = new_current
+            else:
+                parent.right = new_current
+
+        else:
+            # Węzeł z dwoma dziećmi: znajdź następnika (minimalny węzeł w prawym poddrzewie)
+            successor_parent = current
+            successor = current.right
+
+            while successor.left:
+                successor_parent = successor
+                successor = successor.left
+
+            # Zastąp wartość węzła do usunięcia wartością następnika
+            current.val = successor.val
+
+            # Usuń następnika
+            if successor_parent.left == successor:
+                successor_parent.left = successor.right
+            else:
+                successor_parent.right = successor.right
+
+    ################################################################################################
     
     def JestOswietlona(self):
         return NotImplementedError
