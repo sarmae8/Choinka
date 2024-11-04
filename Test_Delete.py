@@ -3,13 +3,14 @@ from BST import *
 def main():
 
     bst  = BST()
-    members = [17,11,13,15,16,18,28,23,21,19,5,1,8,6,7,24,25,20,4,14,22,12,29,30,2,3,26,27,9,10]
+    members = [15,7,3,2,5,4,6,11,13,14,12,9,8,10,30,20,50,17,25,40,110,35,45,70,220,31,37,42,47,150,250,46,27,1, 46.5, 45.5]
     for x in members:
         bst.insert(x)
 
     bst.display()
 
-    bst.delete(23)
+    bst.delete(50)
+
     bst.display()
 
 if __name__ == "__main__":

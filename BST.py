@@ -3,7 +3,7 @@ import networkx as nx
 
 class Node:
     def __init__(self, val):
-        self.val: int = val
+        self.val = val
         self.left: Node = None
         self.right: Node = None
 
@@ -11,7 +11,7 @@ class BST:
     def __init__(self):
         self.root : Node = None
 
-    ###########################  ----------  member  -----------  ##################################
+    ###########################  member  ###########################
     
     def member(self, val):                              # Funkcja odwołuje się do funkcji rekurencyjnej member_rec
         return self.member_rec(self.root, val)
@@ -29,7 +29,7 @@ class BST:
 
         return self.member_rec(node.right, val)         # Jeżeli "val" jest większe niż "node.val" to szukamy w prawym potomku
     
-    ###########################  ----------  insert  -----------  ##################################
+    ###########################  insert  ###########################
     
     def insert(self, val):
 
@@ -60,7 +60,7 @@ class BST:
             parentNode.left = newNode
 
 
-    ########################### ------ display ------- ############################################
+    ########################### display ###########################
 
     def display(self):
         scale: int = 2
@@ -93,7 +93,7 @@ class BST:
         plt.title("Binary Search Tree")
         plt.show()
     
-    ###########################  ----------  delete  -----------  ##################################
+    ###########################  delete  ###########################
     
     def delete(self, val):
         # Korzeń drzewa
@@ -135,22 +135,27 @@ class BST:
             if (parent.right == current): parent.right = current.right
 
 
-        # Przypadek 4 - węzeł ma dwóch potomków TODO
+        # Przypadek 4 - węzeł ma dwóch potomków
         elif (current.left is not None) and (current.right is not None):
-            left_node = current.left
-            right_node = current.right
 
+            # znajdź następnika - maksymalny węzeł w lewym poddrzewie i jego rodzica
+            successor_parent = current
+            successor = current.left
 
-            
-            # węzeł o maksymalnej wartości z lewego poddrzewa
-            max_left_node: Node = current.left
-            max_left_node_parent: Node
-            while max_left_node.right is not None:
-                max_left_node_parent = max_left_node
-                max_left_node = max_left_node.right
+            while True:
+                if (successor.right is None): break
+                successor_parent = successor
+                successor = successor.right
 
-            current.val = max_left_node.val
-            max_left_node_parent.right = max_left_node.left
+            # Zastąp wartość węzła do usunięcia wartością następnika
+            current.val = successor.val
+
+            # Usuń następnika
+            if (successor_parent.right == successor):
+                successor_parent.right = successor.left
+
+            elif (successor_parent.left == successor):
+                successor_parent.left = successor.left
 
     ################################################################################################
     
