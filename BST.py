@@ -1,11 +1,25 @@
 import matplotlib.pyplot as plt
 import networkx as nx
 
+
 class Node:
     def __init__(self, val):
         self.val = val
         self.left: Node = None
         self.right: Node = None
+
+    def IsBauble(self) -> bool:
+        return (self.val % 2 == 1)
+
+    def IsLight(self) -> bool:
+        return (self.val % 2 == 0)
+
+    def IsYellowLight(self) -> bool:
+        return (self.val % 4 == 0)
+
+    def IsRedLight(self) -> bool:
+        return (self.val % 4 != 0) 
+
 
 class BST:
     def __init__(self):
