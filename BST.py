@@ -3,9 +3,9 @@ import networkx as nx
 
 class Node:
     def __init__(self, val):
-        self.val = val
-        self.left = None
-        self.right = None
+        self.val: int = val
+        self.left: Node = None
+        self.right: Node = None
 
 class BST:
     def __init__(self):
@@ -111,40 +111,46 @@ class BST:
             else:
                 current = current.right
 
+
         # Jeśli węzeł nie został znaleziony
         if current is None:
             return  # Węzeł do usunięcia nie istnieje
+        
+        
+        # Przypadek 1 - węzeł jest liściem
+        elif (current.left is None) and (current.right is None):
+            if (parent.left == current): parent.left = None
+            if (parent.right == current): parent.right = None
 
-        # Węzeł bez dzieci lub z jednym dzieckiem
-        if current.left is None or current.right is None:
-            # Węzeł do usunięcia
-            new_current = current.left if current.left else current.right
 
-            if parent is None:
-                # Usuwamy korzeń
-                self.root = new_current
-            elif parent.left == current:
-                parent.left = new_current
-            else:
-                parent.right = new_current
+        # Przypadek 2 - węzeł ma tylko lewego potomka
+        elif (current.left is not None) and (current.right is None):
+            if (parent.left == current): parent.left = current.left
+            if (parent.right == current): parent.right = current.left
 
-        else:
-            # Węzeł z dwoma dziećmi: znajdź następnika (minimalny węzeł w prawym poddrzewie)
-            successor_parent = current
-            successor = current.right
 
-            while successor.left:
-                successor_parent = successor
-                successor = successor.left
+        # Przypadek 3 - węzeł ma tylko prawego potomka
+        elif (current.right is not None) and (current.left is None):
+            if (parent.left == current): parent.left = current.right
+            if (parent.right == current): parent.right = current.right
 
-            # Zastąp wartość węzła do usunięcia wartością następnika
-            current.val = successor.val
 
-            # Usuń następnika
-            if successor_parent.left == successor:
-                successor_parent.left = successor.right
-            else:
-                successor_parent.right = successor.right
+        # Przypadek 4 - węzeł ma dwóch potomków TODO
+        elif (current.left is not None) and (current.right is not None):
+            left_node = current.left
+            right_node = current.right
+
+
+            
+            # węzeł o maksymalnej wartości z lewego poddrzewa
+            max_left_node: Node = current.left
+            max_left_node_parent: Node
+            while max_left_node.right is not None:
+                max_left_node_parent = max_left_node
+                max_left_node = max_left_node.right
+
+            current.val = max_left_node.val
+            max_left_node_parent.right = max_left_node.left
 
     ################################################################################################
     
