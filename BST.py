@@ -19,6 +19,22 @@ class Node:
 
     def IsRedLight(self) -> bool:
         return (self.val % 4 != 0) 
+    
+    def IsLeaf(self) -> bool:
+        return (self.left is None) and (self.right is None)
+    
+    def HaveLightChild(self):
+        
+        if self.left is not None:
+            if self.left.IsLight(): 
+                return True
+
+        if self.right is not None:
+            if self.right.IsLight(): 
+                return True
+
+        return False
+            
 
 
 class BST:
@@ -171,10 +187,25 @@ class BST:
             elif (successor_parent.left == successor):
                 successor_parent.left = successor.left
 
-    ################################################################################################
+    ########################## Jest Oświetlona ##########################
     
-    def JestOswietlona(self):
-        return NotImplementedError
+    def JestOswietlona(self) -> bool:
+        return self._jestOswietlona_recursive(self.root)
+
+    def _jestOswietlona_recursive(self, node: Node) -> bool:
+
+        if (node is None): 
+            return True
+
+        if (node.IsLeaf()): 
+            return True
+
+        if (not node.HaveLightChild()): 
+            return False
+
+        return (self._jestOswietlona_recursive(node.left)) and (self._jestOswietlona_recursive(node.right))
+    
+    ################################################################################################
     
     def JestStylowa(self):
         return NotImplementedError
