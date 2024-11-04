@@ -205,6 +205,42 @@ class BST:
 
         return (self._jestOswietlona_recursive(node.left)) and (self._jestOswietlona_recursive(node.right))
     
+    ########################## Jest Równo oświetlona ##########################        
+    
+    def _count_lights(self, node):
+        
+        if node is None:
+            return (0, 0)
+
+        left_yellow, left_red = self._count_lights(node.left)
+        right_yellow, right_red = self._count_lights(node.right)
+
+        yellow_count = left_yellow + right_yellow
+        red_count = left_red + right_red
+
+        if node.IsLight():
+            if node.IsYellowLight():
+                yellow_count += 1
+            else:
+                red_count += 1
+
+        return (yellow_count, red_count)
+
+    def _is_evenly_lit_helper(self, node):
+
+        if node is None:
+            return True
+
+        yellow_count, red_count = self._count_lights(node)
+       
+        if abs(yellow_count - red_count) > 1:
+            return False
+
+        return self._is_evenly_lit_helper(node.left) and self._is_evenly_lit_helper(node.right)
+
+    def JestRownoOswietlona(self):
+        return self._is_evenly_lit_helper(self.root)
+    
     ################################################################################################
     
     def JestStylowa(self):
