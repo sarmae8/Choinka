@@ -101,19 +101,22 @@ class BST:
         parent: Node = None
 
         # Znajdź węzeł do usunięcia oraz jego rodzica
-        while current and current.val != val:
+        while current is not None:
+            if (current.val == val): break
+
             parent = current
+            
             if val < current.val:
                 current = current.left
             else:
                 current = current.right
 
         # Jeśli węzeł nie został znaleziony
-        if not current:
+        if current is None:
             return  # Węzeł do usunięcia nie istnieje
 
         # Węzeł bez dzieci lub z jednym dzieckiem
-        if not current.left or not current.right:
+        if current.left is None or current.right is None:
             # Węzeł do usunięcia
             new_current = current.left if current.left else current.right
 
