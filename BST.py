@@ -299,22 +299,6 @@ class BST:
     def _is_colorful(self, chain):
         pass
 
-    def _is_monochromatic(self, chain):
-        yellow_lights = 0
-        red_lights = 0
-
-        # Zliczamy światełka czerwone i żółte
-        for i in range (len(chain)):
-            if chain[i] % 4 == 0:
-                yellow_lights += 1
-            else:
-                red_lights += 1
-                
-        # Jest jednokolorowa jeśli wszystkie światełka są w jednym kolorze
-        if (yellow_lights == 0 and red_lights != 0) or (yellow_lights != 0 and red_lights == 0):
-            return True
-        return False
-
     def _is_traditional(self, chain):
         yellow_lights = 0
         red_lights = 0
@@ -356,15 +340,38 @@ class BST:
         # Usuń bieżący węzeł z ścieżki po powrocie z rekursji
         current_chain.pop()   
     
-    ########################### Jest Elegancka ################################################3
+    ########################### Jest Elegancka ################################################
     def JestElegancka(self):
         return NotImplementedError
     
     def JestTradycyjna(self):
         return NotImplementedError
-    
-    def IleLancuchowJednobarwnych(self):
-        return NotImplementedError
+    ########################## Ile Łańcuchów Jednobarwnych ##################################
 
+    def IleLancuchowJednobarwnych(self):
+        chains = self._all_chains()
+        count = 0
+        for i in range (len(chains)):
+            if self._is_monochromatic(chains[i]):
+                count += 1
+        return count
+
+    def _is_monochromatic(self, chain):
+        yellow_lights = 0
+        red_lights = 0
+
+        # Zliczamy światełka czerwone i żółte
+        for i in range (len(chain)):
+            if chain[i] % 4 == 0:
+                yellow_lights += 1
+            elif chain[i] % 2 == 0:
+                red_lights += 1
+                
+        # Jest jednokolorowa jeśli wszystkie światełka są w jednym kolorze
+        if (yellow_lights == 0 and red_lights != 0) or (yellow_lights != 0 and red_lights == 0):
+            return True
+        return False
+
+    ################################ Jest Gotowa ##################################
     def JestGotowa(self):
         return NotImplementedError
