@@ -191,6 +191,7 @@ class BST:
     
     def JestOswietlona(self) -> bool:
         return self._jestOswietlona_recursive(self.root)
+    
 
     def _jestOswietlona_recursive(self, node: Node) -> bool:
 
@@ -205,7 +206,11 @@ class BST:
 
         return (self._jestOswietlona_recursive(node.left)) and (self._jestOswietlona_recursive(node.right))
     
-    ########################## Jest Równo oświetlona ##########################        
+    ########################## Jest Równo oświetlona ##########################       
+
+    def JestRownoOswietlona(self):
+        return self._is_evenly_lit_helper(self.root) 
+    
     
     def _count_lights(self, node):
         
@@ -244,10 +249,6 @@ class BST:
             return False
 
         return self._is_evenly_lit_helper(node.left) and self._is_evenly_lit_helper(node.right)
-    
-
-    def JestRownoOswietlona(self):
-        return self._is_evenly_lit_helper(self.root)
     
     ################################################################################################
     
