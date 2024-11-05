@@ -292,10 +292,71 @@ class BST:
         
         return self._is_stable(node.left) and self._is_stable(node.right)
     
-    ################################################################################################
+    ################### Najdłuższy Łańcuch Kolorowy ###########################################
     def NajdluzszyLancuchKolorowy(self):
         return NotImplementedError
     
+    def _is_colorful(self, chain):
+        pass
+
+    def _is_monochromatic(self, chain):
+        yellow_lights = 0
+        red_lights = 0
+
+        # Zliczamy światełka czerwone i żółte
+        for i in range (len(chain)):
+            if chain[i] % 4 == 0:
+                yellow_lights += 1
+            else:
+                red_lights += 1
+                
+        # Jest jednokolorowa jeśli wszystkie światełka są w jednym kolorze
+        if (yellow_lights == 0 and red_lights != 0) or (yellow_lights != 0 and red_lights == 0):
+            return True
+        return False
+
+    def _is_traditional(self, chain):
+        yellow_lights = 0
+        red_lights = 0
+
+        # Zliczamy światełka czerwone i żółte
+        for i in range (len(chain)):
+            if chain[i] % 4 == 0:
+                yellow_lights += 1
+            else:
+                red_lights += 1
+
+        # Jest tradycyjna jeśli żółte = czerwone
+        if yellow_lights == red_lights:
+            return True
+        return False
+
+    def _all_chains(self):
+        chains = []
+        self._find_chains(self.root, [], chains)
+        return chains
+
+    def _find_chains(self, node, current_chain, chains):
+        if node is None:
+            return
+        
+        # Dodaj bieżący węzeł do ścieżki
+        current_chain.append(node.val)
+
+        # Jeśli to liść zapisz ścieżkę
+        if node.left is None and node.right is None:
+            chains.append(list(current_chain))
+
+        # Przejdź w lewe poddrzewo i prawe poddrzewo
+        if node.left:
+            self._find_chains(node.left, current_chain, chains)
+        if node.right:
+            self._find_chains(node.right, current_chain, chains)
+
+        # Usuń bieżący węzeł z ścieżki po powrocie z rekursji
+        current_chain.pop()   
+    
+    ########################### Jest Elegancka ################################################3
     def JestElegancka(self):
         return NotImplementedError
     
