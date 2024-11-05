@@ -18,7 +18,7 @@ class Node:
         return (self.val % 4 == 0)
 
     def IsRedLight(self) -> bool:
-        return (self.val % 4 != 0) 
+        return (self.val % 2 == 0) and (self.val % 4 != 0) 
     
     def IsLeaf(self) -> bool:
         return (self.left is None) and (self.right is None)
@@ -209,34 +209,42 @@ class BST:
     
     def _count_lights(self, node):
         
+        # Warunek stopu rekurencji
         if node is None:
             return (0, 0)
-
+        
+        # Liczymy swiatelka zolte i czerwone w prawym i lewym poddrzewie
         left_yellow, left_red = self._count_lights(node.left)
         right_yellow, right_red = self._count_lights(node.right)
 
+        # Sumujemy liczbe swiatelek z prawego i lewego poddrzewa
         yellow_count = left_yellow + right_yellow
         red_count = left_red + right_red
 
-        if node.IsLight():
-            if node.IsYellowLight():
-                yellow_count += 1
-            else:
-                red_count += 1
+        # Dodajemy jeszcze ewentualnie aktualny węzeł jeśli jest żółtym lub czerwonym światełkiem
+        if node.IsYellowLight():
+            yellow_count += 1
+        elif node.IsRedLight():
+            red_count += 1
 
         return (yellow_count, red_count)
+    
 
     def _is_evenly_lit_helper(self, node):
 
+        # Warunek stopu
         if node is None:
             return True
 
+        # Zliczamy swiatelka czerwone i zolte
         yellow_count, red_count = self._count_lights(node)
        
+        # Dalsza czesc rekurencji
         if abs(yellow_count - red_count) > 1:
             return False
 
         return self._is_evenly_lit_helper(node.left) and self._is_evenly_lit_helper(node.right)
+    
 
     def JestRownoOswietlona(self):
         return self._is_evenly_lit_helper(self.root)
