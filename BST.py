@@ -250,14 +250,27 @@ class BST:
 
         return self._is_evenly_lit_helper(node.left) and self._is_evenly_lit_helper(node.right)
     
-    ################################################################################################
+    ################################### Jest Stylowa ###################################################
     
     def JestStylowa(self):
         return NotImplementedError
     
-    def JestStabilna(self):
-        return NotImplementedError
+    ################################# Jest Stabilna ##################################################
     
+    def JestStabilna(self):
+        return self._is_stable(self.root)
+    
+    def _is_stable(self, node):
+        # war. stopu dla rekurencji
+        if node is None:
+            return True
+        
+        # Jest niestabilna jak różnica między poddrzewami: lewym i prawym jest większa niż 3
+        if abs(sum(self._count_lights(node.left)) - sum(self._count_lights(node.right))) > 3:
+            return False
+        
+        return self._is_stable(node.left) and self._is_stable(node.right)
+    ################################################################################################
     def NajdluzszyLancuchKolorowy(self):
         return NotImplementedError
     
