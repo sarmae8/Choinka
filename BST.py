@@ -293,27 +293,12 @@ class BST:
         return self._is_stable(node.left) and self._is_stable(node.right)
     
     ################### Najdłuższy Łańcuch Kolorowy ###########################################
+
     def NajdluzszyLancuchKolorowy(self):
         return NotImplementedError
     
     def _is_colorful(self, chain):
         pass
-
-    def _is_traditional(self, chain):
-        yellow_lights = 0
-        red_lights = 0
-
-        # Zliczamy światełka czerwone i żółte
-        for i in range (len(chain)):
-            if chain[i] % 4 == 0:
-                yellow_lights += 1
-            else:
-                red_lights += 1
-
-        # Jest tradycyjna jeśli żółte = czerwone
-        if yellow_lights == red_lights:
-            return True
-        return False
 
     def _all_chains(self):
         chains = []
@@ -341,11 +326,37 @@ class BST:
         current_chain.pop()   
     
     ########################### Jest Elegancka ################################################
+
     def JestElegancka(self):
         return NotImplementedError
     
+    ############################ Jest Tradycyjna ##################################
     def JestTradycyjna(self):
-        return NotImplementedError
+        chains = self._all_chains()
+        count_trad_chains = 0
+        for i in range (len(chains)):
+            if self._is_traditional(chains[i]):
+                count_trad_chains += 1
+        if self.JestStabilna and self.JestRownoOswietlona and count_trad_chains >= 1:
+            return True
+        return False
+    
+    def _is_traditional(self, chain):
+        yellow_lights = 0
+        red_lights = 0
+
+        # Zliczamy światełka czerwone i żółte
+        for i in range (len(chain)):
+            if chain[i] % 4 == 0:
+                yellow_lights += 1
+            elif chain[i] % 2 == 0:
+                red_lights += 1
+
+        # Jest tradycyjna jeśli żółte = czerwone
+        if yellow_lights == red_lights:
+            return True
+        return False
+
     ########################## Ile Łańcuchów Jednobarwnych ##################################
 
     def IleLancuchowJednobarwnych(self):
