@@ -253,8 +253,29 @@ class BST:
     ################################### Jest Stylowa ###################################################
     
     def JestStylowa(self):
-        return NotImplementedError
+        return self._is_stylish(self.root)
     
+    def _is_stylish(self, node):
+        #Sprawdzamy, czy każda bombka ma żółtego liścia
+        if node.IsBauble():
+            return self._has_yellow_subtree(node)
+
+        return self._is_stylish(node.left) or self._is_stylish(node.right)
+
+    def _has_yellow_subtree(self, node):
+        #Żeby miało żółte poddrzewo, wystarczy że ma żółtego liścia
+        #War. stopu rekurencji
+        if node is None:
+            return False
+        
+        elif node.IsLeaf() and node.IsYellowLight():
+            return True 
+        
+        elif node.IsLeaf() and (node.IsBauble or node.IsRedLight()):
+            return False
+        
+        return self._has_yellow_subtree(node.left) or self._has_yellow_subtree(node.right)
+
     ################################# Jest Stabilna ##################################################
     
     def JestStabilna(self):
@@ -270,6 +291,7 @@ class BST:
             return False
         
         return self._is_stable(node.left) and self._is_stable(node.right)
+    
     ################################################################################################
     def NajdluzszyLancuchKolorowy(self):
         return NotImplementedError
