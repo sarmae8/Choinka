@@ -308,7 +308,6 @@ class BST:
 
         return len_chain
 
-    
     def _is_colorful(self, chain):
         #Sprawdza, czy światełka są naprzemienne kolorami
         n = len(chain)
@@ -331,10 +330,7 @@ class BST:
                 return False
             
         return True       
-        
-
-        
-
+    
     def _all_chains(self):
         chains = []
         self._find_chains(self.root, [], chains)
@@ -363,7 +359,20 @@ class BST:
     ########################### Jest Elegancka ################################################
 
     def JestElegancka(self):
-        return NotImplementedError
+        #sprawdza, czy choinka T ma co najmniej tyle samo łańcuchów kolorowych co jednobarwnych
+        
+        chains = self._all_chains()
+        count_colorful = 0
+        count_monochromatic = 0 
+
+        #Zlicza lancuchy kolorowe i jednobarwne
+        for i in range (len(chains)):
+            if self._is_monochromatic(chains[i]):
+                count_monochromatic += 1
+            elif self._is_colorful:
+                count_colorful += 1
+        
+        return count_colorful == count_monochromatic
     
     ############################ Jest Tradycyjna ##################################
     def JestTradycyjna(self):
@@ -423,4 +432,16 @@ class BST:
     ################################ Jest Gotowa ##################################
 
     def JestGotowa(self):
-        return NotImplementedError
+        #Sprawdza, czy choinka T jest stabilna, oświetlona i ma przynajmniej jeden łańcuch kolorowy i jeden łańcuch jednobarwny.
+        chains = self._all_chains()
+        count_colorful = 0
+        count_monochromatic = 0
+
+        #Zlicza lancuchy kolorowe i jednobarwne
+        for i in range (len(chains)):
+            if self._is_monochromatic(chains[i]):
+                count_monochromatic += 1
+            elif self._is_colorful:
+                count_colorful += 1
+                
+        return self.JestStabilna() and self.JestOswietlona() and count_monochromatic > 0 and count_colorful > 0
