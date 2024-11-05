@@ -295,10 +295,45 @@ class BST:
     ################### Najdłuższy Łańcuch Kolorowy ###########################################
 
     def NajdluzszyLancuchKolorowy(self):
-        return NotImplementedError
+        # Zwraca długośc najdłuższego kolorowego łańcucha w choince
+        chains = self._all_chains()
+        len_chain = 0
+
+        for i in range (len(chains)):
+
+            if self._is_colorful(chains[i]):
+                
+                if len_chain < len(chains[i]):
+                    len_chain = len(chains[i])
+
+        return len_chain
+
     
     def _is_colorful(self, chain):
-        pass
+        #Sprawdza, czy światełka są naprzemienne kolorami
+        n = len(chain)
+        colours = [None] * n
+
+        # Tworzy listę binarną, gdzie światełko żółte to 1 a czerwone to 0
+        for i in range (n):
+
+            #Jeżeli nie-światełko to False
+            if chain[i] % 2 != 0:
+                return False
+            if chain[i] % 4 == 0:
+                colours[i] = 1
+            else:
+                colours[i] = 0
+        # Sprawdza, czy lista światełkowa jest naprzemienna
+        for i in range (1, n):
+
+            if colours[i] == colours[i-1]:
+                return False
+            
+        return True       
+        
+
+        
 
     def _all_chains(self):
         chains = []
@@ -332,6 +367,7 @@ class BST:
     
     ############################ Jest Tradycyjna ##################################
     def JestTradycyjna(self):
+        #Sprawdza, czy choinka T jest stabilna, równo oświetlona i ma przynajmniej jeden łańcuch tradycyjny
         chains = self._all_chains()
         count_trad_chains = 0
         for i in range (len(chains)):
@@ -360,6 +396,7 @@ class BST:
     ########################## Ile Łańcuchów Jednobarwnych ##################################
 
     def IleLancuchowJednobarwnych(self):
+        #Sprawdza liczbę łańcuchów jednobarwnych
         chains = self._all_chains()
         count = 0
         for i in range (len(chains)):
@@ -384,5 +421,6 @@ class BST:
         return False
 
     ################################ Jest Gotowa ##################################
+
     def JestGotowa(self):
         return NotImplementedError
