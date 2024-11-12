@@ -257,7 +257,10 @@ class BST:
     
     def _is_stylish(self, node):
         #Sprawdzamy, czy każda bombka ma żółtego liścia
-        if node.IsBauble():
+        if node is None:
+            return False
+        
+        elif node.IsBauble():
             return self._has_yellow_subtree(node)
 
         return self._is_stylish(node.left) or self._is_stylish(node.right)
