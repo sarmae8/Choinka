@@ -8,7 +8,7 @@ def Continue(bst: BST):
     os.system('cls')
 
     text = """
-0) Wyświetl choinkę. (jeśli drzewo jest bardzo duże to robisz to na własną odpowiedzialność xd)
+0) Wyświetl choinkę. (jeśli drzewo jest bardzo duże to robisz to na własną odpowiedzialność :)
 
 1) Czy jest oświetlona?
 2) Czy jest równo oświetlona?
@@ -22,6 +22,8 @@ def Continue(bst: BST):
 
 10) Powrót do menu głównego.
 11) Zakończ program.
+
+--------------------------------------------------------------------
 """
 
     print(text)
