@@ -15,7 +15,7 @@ def Continue(bst: BST):
 3) Czy jest stylowa?
 4) Czy jest stabilna?
 5) Czy jest elegancka?
-6) Czy jest tradycyjna?
+6) Czy jest tradycyjna? 
 7) Czy jest gotowa?
 8) Ile ma łańcuchów jednobarwnych?
 9) Jaka jest długość najdłuższego łańcucha kolorowego?
