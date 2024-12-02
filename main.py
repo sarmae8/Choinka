@@ -107,7 +107,18 @@ def start(s = False):
 
 
 def start_option1():
-    n = int(input("Podaj liczbę n (liczba węzłów w drzewie): "))
+    while (True):
+        n = input("Podaj liczbę n (liczba węzłów w drzewie): ")
+        try:
+            n = int(n)
+            if n >= 0:
+                break
+            else:
+                print("n musi być większe od zera.")
+                continue
+        except:
+            print("n musi być liczbą całkowitą.")
+
     bst = GenRandBST(n)
     Continue(bst)
 
