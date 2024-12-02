@@ -1,48 +1,66 @@
 import os
+import sys
 from BST import BST
 from GenRandBST import GenRandBST
 
 
-def Continue(bst):
+def Continue(bst: BST):
     os.system('cls')
 
-    print("0) Wyświetl choinkę.")
-    print()
-    print("1) Czy jest oświetlona?")
-    print("2) Czy jest równo oświetlona?")
-    print("3) Czy jest stylowa?")
-    print("4) Czy jest elegancka?")
-    print("5) Czy jest tradycyjna?")
-    print("6) Czy jest gotowa?")
-    print("7) Ile ma łańcuchów jednobarwnych?")
-    print("8) Jaka jest długość najdłuższego łańcucha kolorowego?")
-    print()
-    print("9) Powrót do menu głównego.")
-    print("10) Zakończ program.")
+    text = """
+0) Wyświetl choinkę. (jeśli drzewo jest bardzo duże to robisz to na własną odpowiedzialność xd)
+
+1) Czy jest oświetlona?
+2) Czy jest równo oświetlona?
+3) Czy jest stylowa?
+4) Czy jest stabilna?
+5) Czy jest elegancka?
+6) Czy jest tradycyjna?
+7) Czy jest gotowa?
+8) Ile ma łańcuchów jednobarwnych?
+9) Jaka jest długość najdłuższego łańcucha kolorowego?
+
+10) Powrót do menu głównego.
+11) Zakończ program.
+"""
+
+    print(text)
+
+    while (True):
+        opcja = input("Wybierz opcję: ")
+
+        if opcja == "0":
+            bst.display()
+        elif opcja == "1":
+            print(f"Jest oświetlona: {bst.JestOswietlona()}")
+        elif opcja == "2":
+            print(f"Jest równo oświetlona: {bst.JestRownoOswietlona()}")
+        elif opcja == "3":
+            print(f"Jest stylowa: {bst.JestStylowa()}")
+        elif opcja == "4":
+            print(f"Jest stablina {bst.JestStabilna()}")
+        elif opcja == "5":
+            print(f"Jest elegancka: {bst.JestElegancka()}")
+        elif opcja == "6":
+            print(f"Jest tradycyjna: {bst.JestTradycyjna()}")
+        elif opcja == "7":
+            print(f"Jest gotowa: {bst.JestGotowa()}")
+        elif opcja == "8":
+            print(f"Ile łańcuchów jednobarwnych: {bst.IleLancuchowJednobarwnych()}")
+        elif opcja == "9":
+            print(f"Najdłuższy łańcuch kolorowy: {bst.NajdluzszyLancuchKolorowy()}")
+        elif opcja == "10":
+            start()
+        elif opcja == "11":
+            sys.exit()
+        else:
+            print("Wybrano nieprawidłową opcję.")
+
+        print()
 
 
-def option1():
-    n = int(input("Podaj liczbę n (liczba węzłów w drzewie): "))
-    bst = GenRandBST(n)
-    Continue(bst)
-
-
-def option2():
-    bst = BST()
-    print("Wprowadź węzły jakie chcesz dodać. Aby zakończyć wstawianie wprowadź 'x'")
-    while(True):
-        x = input(": ")
-
-        if (x.lower() in ["x", "'x'", "'x", "x'"]):
-            break
-
-        try:
-            x = float(x)
-            bst.insert(x)
-        except:
-            print("Podanej wartości nie można zrzutować na typ float.")
-
-    Continue(bst)
+##################################################################################################################################
+##################################################################################################################################
 
 
 def start(s = False):
@@ -73,17 +91,41 @@ def start(s = False):
     opcja = input("Wybierz opcję: ")
     
     if opcja == "1":
-        option1()
+        start_option1()
 
     elif opcja == "2":
-        option2()
+        start_option2()
 
     elif opcja == "3":
-        return
+        sys.exit()
     
     else:
         os.system('cls')
         start(s=True)
+
+
+def start_option1():
+    n = int(input("Podaj liczbę n (liczba węzłów w drzewie): "))
+    bst = GenRandBST(n)
+    Continue(bst)
+
+
+def start_option2():
+    bst = BST()
+    print("Wprowadź węzły jakie chcesz dodać. Aby zakończyć wstawianie wprowadź 'x'")
+    while(True):
+        x = input(": ")
+
+        if (x.lower() in ["x", "'x'", "'x", "x'"]):
+            break
+
+        try:
+            x = float(x)
+            bst.insert(x)
+        except:
+            print("Podanej wartości nie można zrzutować na typ float.")
+
+    Continue(bst)
 
 
 def main():
